@@ -4,6 +4,7 @@ import javax.mail.MessagingException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.security.GeneralSecurityException;
 import java.util.List;
 
 public class EntryClass {
@@ -13,12 +14,8 @@ public class EntryClass {
       JSONReader jsonReader = new JSONReader(Paths.get(jcp));
       List<Subscriber> subscribers = CSVReader.parseCSV(jsonReader.subcsvpath);
       String emailContents = new String(Files.readAllBytes(Paths.get(jsonReader.htmlpath)));
-      for (Subscriber subscriber : subscribers) {
-        System.out.println("Sending new post email to: " + subscriber.getEmail());
-        EmailEngine.generateAndSendEmail(jsonReader.host, jsonReader.port, jsonReader.user, jsonReader.password,
-            jsonReader.subject, emailContents, subscriber.getEmail());
-      }
-    } catch (IOException | MessagingException ex) {
+      EmailEngine.SendEmails(subscribers, jsonReader, emailContents);
+    } catch (IOException | MessagingException | GeneralSecurityException ex) {
       ex.printStackTrace(System.err);
     }
   }

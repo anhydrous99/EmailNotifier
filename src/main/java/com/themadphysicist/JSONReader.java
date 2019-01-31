@@ -11,6 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 class JSONReader {
+  String user;
   String subcsvpath;
   String subject;
   String htmlpath;
@@ -18,12 +19,13 @@ class JSONReader {
   String project_id;
   String auth_uri;
   String token_uri;
-  String auth_provider_x506_cert_url;
+  String auth_provider_x509_cert_url;
   String client_secret;
   List<String> redirect_uris;
   JSONReader(Path configpath) throws JSONException, IOException {
     String jsontxt = new String(Files.readAllBytes(configpath));
     JSONObject json = new JSONObject(jsontxt);
+    user = json.getString("user");
     subcsvpath = json.getString("subcsvpath");
     subject = json.getString("emailsubject");
     htmlpath = json.getString("emailhtmlpath");
@@ -31,7 +33,7 @@ class JSONReader {
     project_id = json.getString("project_id");
     auth_uri = json.getString("auth_uri");
     token_uri = json.getString("token_uri");
-    auth_provider_x506_cert_url = json.getString("auth_provider_x506_cert_url");
+    auth_provider_x509_cert_url = json.getString("auth_provider_x509_cert_url");
     client_secret = json.getString("client_secret");
     redirect_uris = new ArrayList<>();
     JSONArray arr = json.getJSONArray("redirect_uris");
