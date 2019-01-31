@@ -11,10 +11,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 class JSONReader {
-  String host;
-  String port;
-  String user;
-  String password;
   String subcsvpath;
   String subject;
   String htmlpath;
